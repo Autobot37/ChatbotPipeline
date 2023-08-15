@@ -9,10 +9,10 @@ class QNA:
         self.model = SentenceTransformer(model_name)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model.to(self.device)
-        with open('embedding_map.pkl', 'rb') as embedding_file:
+        with open('C:\\Users\\SHIVA SINGH\\Documents\\Pipeline\\embedding_map.pkl', 'rb') as embedding_file:
             self.embedding_map = pickle.load(embedding_file)
         
-        with open('answer_map.pkl', 'rb') as answer_file:
+        with open('C:\\Users\\SHIVA SINGH\\Documents\\Pipeline\\answer_map.pkl', 'rb') as answer_file:
             self.answer_map = pickle.load(answer_file)
 
     def answer(self, query: str) -> str:
@@ -32,10 +32,9 @@ class QNA:
         answer = self.answer_map.get(most_similar_query, "No answer found")
         return answer
 
-df = pd.read_excel('Data Set.xlsx')  
-qna = QNA()
+# df = pd.read_excel('Data Set.xlsx')  
+# qna = QNA()
 
-query = "mens tshirt"
-#response = qna.answer(query)
-#print(response)
-print(len(df["utterance"].tolist()))
+# query = "mens tshirt"
+# #response = qna.answer(query)
+# #print(response)

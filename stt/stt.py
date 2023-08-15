@@ -25,3 +25,4 @@ class STT:
 # stt = STT()
 # stt.transcribe("Text-to-Speech_13-Aug-2023_18-26.mp3")
 
+print(torch.cuda.is_available())
