@@ -15,7 +15,7 @@ import pickle
 from bark import SAMPLE_RATE
 import sounddevice as sd
 from qa.qna import QNA
-
+from document.dataset import Dataset
 
 def transcribe_audio(audio_data):
     stt = WhisperModel("small", device="cpu", compute_type="float32")
@@ -43,27 +43,69 @@ def main():
     query = transcribe_audio(audio)
 
     print("Transcription:")
-    styled_text = f"[bold italic green]{query}[/bold italic green]"
+    styled_text = f"[bold italic red]{query}[/bold italic red]"
     some = "Hey!, Your query is:"
-    print(f"[bold italic red] {some} [/bold italic red]")
+    print(f"[bold italic blue] {some} [/bold italic blue]")
     print(styled_text)
 
     file_path = "C:\\Users\\SHIVA SINGH\\Documents\\Pipeline\\Data Set.xlsx"
     df = pd.read_excel(file_path)
     answer = qa.answer(query)
-    print(answer)
 
-    #######TO AUDIO ############
-    pickle_path = "C:\\Users\\SHIVA SINGH\\Documents\\Pipeline\\audio_map.pkl"
-    with open(pickle_path, 'rb') as file:
-        audio_map = pickle.load(file)
-    answer_audio_array = audio_map[answer]
+    #type - normal, llm, product
+    if answer["type"] == "normal":
+        
+        styled_answer = f"[bold italic green]{answer}[/bold italic green]"
+        print(styled_answer)
 
-    if answer_audio_array is not None:
-        sd.play(answer_audio_array, SAMPLE_RATE)
-        sd.wait() 
-    else:
-        print("We will reply shortly")
+
+        #######TO AUDIO ############
+        pickle_path = "C:\\Users\\SHIVA SINGH\\Documents\\Pipeline\\audio_map.pkl"
+        with open(pickle_path, 'rb') as file:
+            audio_map = pickle.load(file)
+        answer_audio_array = audio_map[answer]
+
+        if answer_audio_array is not None:
+            sd.play(answer_audio_array, SAMPLE_RATE)
+            sd.wait() 
+        else:
+            print("We will reply shortly")
+    
+
+    if answer["type"] == "LLM":
+
+        #######LLM intervention#########
+
+        print(answer["value"])#just print
+
+        ds = document(file_path)
+        ds.updateanswer(answer["query"], answer["value"])
+        ds.updateaudio(answer["value"])
+
+    if answer["type"] == "product":
+        if answer["value"] is not None:
+            pickle_path = "C:\\Users\\SHIVA SINGH\\Documents\\Pipeline\\audio_map.pkl"
+            with open(pickle_path, 'rb') as file:
+                audio_map = pickle.load(file)
+            answer_audio_array = audio_map[answer["value"]]
+
+            print(answer["value"])
+
+            if answer["price"] is not None:
+                print("your price range is")
+                print(answer["price"])
+            if answer["color"] is not None:
+                print("your color is")
+                print(answer["color"])
+            if answer["size"] is not None:
+                print("your size is")
+                print(answer["size"])
+
+            if answer_audio_array is not None:
+                sd.play(answer_audio_array, SAMPLE_RATE)
+                sd.wait() 
+            else:
+                print("We will reply shortly")
 
 
 

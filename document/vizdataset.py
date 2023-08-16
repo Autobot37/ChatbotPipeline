@@ -10,7 +10,7 @@ df = pd.read_excel(excel_path)
 
 # Assuming your text column is named 'text'
 texts = df['utterance'].tolist()
-texts = texts[::2]
+#texts = texts[::2]
 
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 model.to('cpu')
@@ -23,7 +23,7 @@ embeddings_2d = tsne.fit_transform(embeddings.cpu().detach().numpy())
 
 # Assuming your DataFrame has an 'intent' column
 intents = df['intent'].tolist()
-intents = intents[::2]
+#intents = intents[::2]
 
 # Create a color map for unique intents
 unique_intents = np.unique(intents)

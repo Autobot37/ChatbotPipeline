@@ -22,6 +22,18 @@ for index, row in df.iterrows():
         audio_map[response] = audio_data
    
 
+####some custom statemts####
+askfilters = "Do you want any filters"
+yesno = "Type Y for yes and N for NO"
+sayagain = "Say again with product and filters"
+#############
+data = text_to_audio_array(askfilters)
+audio_map["askfilters"] = data
+data = text_to_audio_array(yesno)
+audio_map["yesno"] = data
+data = text_to_audio_array(sayagain)
+audio_map["sayagain"] = data
+################
 
 audio_map_path = 'audio_map.pkl'
 with open(audio_map_path, 'wb') as f:

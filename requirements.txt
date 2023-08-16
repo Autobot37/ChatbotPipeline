@@ -5,23 +5,3 @@ numpy==1.21.2
 faster_whisper
 sentence_transformers
 
-#okay so here comes my plan makin ass.
-STT 
-1. colored text
-2. Real time
-3. will explore till diart.
-
-QNA
-current seems best
-
-TTS
-some prompting
-
-Dataset, some good features, to upfate every time.
-so yeah.
-
-So it is for now, real time, asr.
-
-one thing is to decide how far to go, for example, i will not go into writing cpp domain for now ,idk i may go.
-but like deciding small part and jumoing i will cover this mans whole life work.
-and certainly will not go to more research side like reaing papers and just glancinga nd graph ml nets kind of stuff.

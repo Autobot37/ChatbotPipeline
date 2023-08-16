@@ -16,8 +16,5 @@ class TTS:
         ar = self.audio_array(script)
         return Audio(ar, rate=SAMPLE_RATE)  
     
-tts = TTS()
-
-tts.audio("""WOMEN:♪ i just came to my systems YO""")
 
  
